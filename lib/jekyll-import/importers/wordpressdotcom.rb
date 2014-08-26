@@ -11,6 +11,7 @@ module JekyllImport
           safe_yaml
           hpricot
           time
+          uri
           open-uri
         ])
       end
@@ -30,9 +31,10 @@ module JekyllImport
         puts "Downloading images for " + title
         images.each do |i|
           uri = i["src"]
+          imgfilename = File.basename(URI.parse(uri).path)
 
-          i["src"] = assets_folder + "/" + File.basename(uri)
-          dst = File.join(assets_folder, File.basename(uri))
+          i["src"] = assets_folder + "/" + imgfilename
+          dst = File.join(assets_folder, imgfilename)
           puts "  " + uri
           if File.exist?(dst)
             puts "    Already in cache. Clean assets folder if you want a redownload."
@@ -46,7 +48,7 @@ module JekyllImport
             }
             puts "    OK!"
           rescue => e
-            puts "    Errorr: #{e.message}"
+            puts "    Error: #{e.message}"
           end
         end
       end
