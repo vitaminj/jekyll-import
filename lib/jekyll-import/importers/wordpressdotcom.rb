@@ -33,7 +33,7 @@ module JekyllImport
           uri = i["src"]
           imgfilename = File.basename(URI.parse(uri).path)
 
-          i["src"] = assets_folder + "/" + imgfilename
+          i["src"] = "/" + assets_folder + "/" + imgfilename
           dst = File.join(assets_folder, imgfilename)
           puts "  " + uri
           if File.exist?(dst)
